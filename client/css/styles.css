@@ -1,0 +1,35 @@
+html {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Amatic SC', cursive;
+}
+
+@font-face {
+    font-family: 'Sweet Pea';
+    src: url('../lib/fonts/sweet.ttf');
+}
+
+.roboto-light{
+  font-family: 'Roboto Condensed';
+}
+
+.amatic{
+  font-family: 'Amatic SC';
+}
+
+.sweet{
+  font-family: 'Sweet Pea';
+}
+
+.miparallax {
+    /* The image used */
+    background-image: url("../img/bg/boda_1.png");
+
+    /* Set a specific height */
+    height: 450px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
