@@ -19,27 +19,29 @@
     <!-- <base href="/"> --> <!-- ESTO LO USAREMOS DESPUES -->
   </head>
   <body>
-    <nav class="pink lighten-3">
-      <div class="nav-wrapper">
-        <a href="#!/" class="brand-logo sweet show-on-medium-and-up hide-on-small-only">Gustavo & Kristell</a>
-        <a href="#!/" class="brand-logo sweet show-on-small hide-on-med-and-up">Gus & Kriss  </a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#!/">Inicio</a></li>
-          <li><a href="#!/prueba">Pagina prueba</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-          <li><a href="#!/">Inicio</a></li>
-          <li><a href="#!/prueba">Pagina prueba</a></li>
-        </ul>
-      </div>
-    </nav>
+    <header>
+      <nav class="pink lighten-3">
+        <div class="nav-wrapper">
+          <a href="#!/" class="brand-logo sweet show-on-medium-and-up hide-on-small-only">Gustavo & Kristell</a>
+          <a href="#!/" class="brand-logo sweet show-on-small hide-on-med-and-up">Gus & Kriss  </a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#!/">Inicio</a></li>
+            <li><a href="#!/prueba">Pagina prueba</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="#!/">Inicio</a></li>
+            <li><a href="#!/prueba">Pagina prueba</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-    <!-- <main ng-view=""> -->
+    <main>
       <div ng-view=""></div>
-    <!-- </main> -->
+    </main>
 
-    <footer class="page-footer">
+    <footer class="page-footer blue-grey lighten-1">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">

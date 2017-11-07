@@ -3,6 +3,16 @@ html {
   font-family: 'Amatic SC', cursive;
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 @font-face {
     font-family: 'Sweet Pea';
     src: url('../lib/fonts/sweet.ttf');
@@ -20,16 +30,14 @@ html {
   font-family: 'Sweet Pea';
 }
 
-.miparallax {
-    /* The image used */
-    background-image: url("../img/bg/boda_1.png");
+.gold{
+  color: #B8860B !important;
+}
 
-    /* Set a specific height */
-    height: 450px;
+.parallax-container {
+  /*height: 400px !important;*/
+}
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.shadow-text{
+    text-shadow:  5px 5px 30px rgba(0,0,0,0.5);
 }

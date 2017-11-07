@@ -11,7 +11,7 @@ class PruebasController extends Controller
     {
         $dato1 =  Input::get('dato1');
         $dato2 =  Input::get('dato2');
-        $respuesta = 'Se recibió '.$dato1.' y '.$dato2.' desde angularjs. Att. Laravel.';
+        $respuesta = 'Se recibió "'.$dato1.'" y "'.$dato2.'" desde angularjs. Att. Laravel.';
         return $respuesta;
     }
 }
