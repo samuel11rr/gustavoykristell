@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Amatic SC', cursive;
+}
+
+body, app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+@font-face {
+    font-family: 'Sweet Pea';
+    src: url('assets/fonts/sweet.ttf');
+}
+
+.roboto-light{
+  font-family: 'Roboto Condensed';
+}
+
+.amatic{
+  font-family: 'Amatic SC';
+}
+
+.sweet{
+  font-family: 'Sweet Pea';
+}
+
+.gold{
+  color: #B8860B !important;
+}
+
+.parallax-container {
+  /*height: 400px !important;*/
+}
+
+.shadow-text{
+    text-shadow:  5px 5px 30px rgba(0,0,0,0.5);
+}
