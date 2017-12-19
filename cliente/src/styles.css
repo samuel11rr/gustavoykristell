@@ -42,3 +42,11 @@ main {
 .shadow-text{
     text-shadow:  5px 5px 30px rgba(0,0,0,0.5);
 }
+
+.espacio-simple{
+  height: 1em;
+}
+
+.espacio-doble{
+  height: 2em;
+}

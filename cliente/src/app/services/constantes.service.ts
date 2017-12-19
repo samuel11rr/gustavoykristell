@@ -5,16 +5,17 @@ export class ConstantesService {
   apiUrl:string = null;
 
   colores = {
-    navbar: 'light-blue darken-4',
-    navbarText: 'cyan-text lighten-5',
+    navbar: 'teal accent-1',
+    navbarText: 'white-text',
+    navbarLink: 'teal-text accent-4',
     principal: null,
     secundario: null,
     resaltado: null,
     link: null,
-    footer: 'teal',
-    footerPrimary: 'lime-text',
-    footerSecondary: 'red-text',
-    footerLink: 'orange-text'
+    footer: 'blue-grey lighten-1',
+    footerPrimary: 'white-text',
+    footerSecondary: 'grey-text text-lighten-4',
+    footerLink: 'grey-text text-lighten-3'
   }
   constructor() { }
 
