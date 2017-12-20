@@ -1,16 +1,16 @@
 <header>
   <nav class="{{ colors.navbar }}">
     <div class="nav-wrapper">
-      <a href="#!/" class="brand-logo sweet show-on-medium-and-up hide-on-small-only {{ colors.navbarText }} shadow-text">Gustavo & Kristell</a>
-      <a href="#!/" class="brand-logo sweet show-on-small hide-on-med-and-up {{ colors.navbarText }} shadow-text">Gus & Kriss  </a>
+      <a [routerLink]="['inicio']" class="brand-logo sweet show-on-medium-and-up hide-on-small-only {{ colors.navbarText }}">Gustavo & Kristell</a>
+      <a [routerLink]="['inicio']" class="brand-logo sweet show-on-small hide-on-med-and-up {{ colors.navbarText }}">Gus & Kriss  </a>
       <a href="#" data-activates="mobile-demo" class="button-collapse {{ colors.navbarText }}"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a  class="{{ colors.navbarLink }}" href="#!/">Inicio</a></li>
-        <li><a  class="{{ colors.navbarLink }}" href="#!/prueba">Pagina prueba</a></li>
+        <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['inicio']">Inicio</a></li>
+        <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['regalos']">Mesa de regalos</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
-        <li><a href="#!/">Inicio</a></li>
-        <li><a href="#!/prueba">Pagina prueba</a></li>
+        <li class="roboto-light"><a [routerLink]="['inicio']">Inicio</a></li>
+        <li class="roboto-light"><a [routerLink]="['regalos']">Pagina prueba</a></li>
       </ul>
     </div>
   </nav>
