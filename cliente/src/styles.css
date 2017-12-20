@@ -37,12 +37,12 @@ main {
   color: #B8860B !important;
 }
 
-.parallax-container {
-  /*height: 400px !important;*/
+.parallax-container.chico {
+  height: 250px !important;
 }
 
 .shadow-text{
-  text-shadow:  5px 5px 30px rgba(0,0,0,0.5);
+  text-shadow:  5px 5px 30px rgba(0,0,0,0.8);
 }
 
 .espacio-simple{

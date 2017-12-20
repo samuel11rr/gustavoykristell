@@ -1,5 +1,5 @@
-<script src="../../assets/js/init.js"></script>
-
+<!-- <script src="../../assets/js/init.js"></script>
+ -->
 <div id="index-banner" class="parallax-container">
   <div class="section no-pad-bot">
     <div class="container">
@@ -23,7 +23,19 @@
 <div class="container">
   <div class="row">
     <div class="col s12 m12 l12 center-align">
-      {{ countdonw }}
+      <div *ngIf="tiempo != undefined">
+        <div class="sweet txtLarge" *ngIf="tiempo.realizado === false">
+          Sólo faltan {{ tiempo.days }} días
+        </div>
+
+        <div class="amatic txtLarge" *ngIf="tiempo.realizado === false">
+          <b>{{ tiempo.hours }}</b> horas | <b>{{ tiempo.minuts }}</b> minutos | <b>{{ tiempo.seconds }}</b> segundos
+        </div>
+
+        <div class="sweet txtLarge" *ngIf="tiempo.realizado === true">
+          ¡Gracias por acompañarnos!
+        </div>
+      </div>
     </div>
   </div>
 </div>

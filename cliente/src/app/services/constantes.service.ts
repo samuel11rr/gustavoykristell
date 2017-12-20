@@ -36,22 +36,21 @@ export class ConstantesService {
       minuts: 0,
       seconds: 0,
       diferencia: 0,
+      realizado: false
     }
 
-    if ( faltante.finalDate > faltante.today) {
-      faltante.diferencia=(faltante.finalDate.getTime()-faltante.today.getTime())/1000;
-      faltante.days=Math.floor(faltante.diferencia/86400);//60*60*24
-      faltante.diferencia=faltante.diferencia-(86400*faltante.days);
-      faltante.hours=Math.floor(faltante.diferencia/3600);
-      faltante.diferencia=faltante.diferencia-(3600*faltante.hours);
-      faltante.minuts=Math.floor(faltante.diferencia/60);
-      faltante.diferencia=faltante.diferencia-(60*faltante.minuts);
-      faltante.seconds=Math.floor(faltante.diferencia);
-
-      return faltante;
+    if ( faltante.finalDate > faltante.today ) {
+          faltante.diferencia = ( faltante.finalDate.getTime() - faltante.today.getTime() ) / 1000; //tiempo restante en milisegundos
+          faltante.days       = Math.floor( faltante.diferencia / 86400 ); // (60*60*24) tiempo restante en días completos
+          faltante.diferencia = faltante.diferencia - ( 86400 * faltante.days );
+          faltante.hours      = Math.floor( faltante.diferencia / 3600 );
+          faltante.diferencia = faltante.diferencia - ( 3600 * faltante.hours );
+          faltante.minuts     = Math.floor( faltante.diferencia / 60 );
+          faltante.diferencia = faltante.diferencia - ( 60 * faltante.minuts );
+          faltante.seconds    = Math.floor( faltante.diferencia );
     } else{
-
+        faltante.realizado = true;
     }
-    // return [finalDate, today];
+    return faltante;
   }
 }

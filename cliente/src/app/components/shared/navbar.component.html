@@ -2,15 +2,17 @@
   <nav class="{{ colors.navbar }}">
     <div class="nav-wrapper">
       <a [routerLink]="['inicio']" class="brand-logo sweet show-on-medium-and-up hide-on-small-only {{ colors.navbarText }}">Gustavo & Kristell</a>
-      <a [routerLink]="['inicio']" class="brand-logo sweet show-on-small hide-on-med-and-up {{ colors.navbarText }}">Gus & Kriss  </a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse {{ colors.navbarText }}"><i class="material-icons">menu</i></a>
+      <a [routerLink]="['inicio']" class="brand-logo sweet show-on-small hide-on-med-and-up {{ colors.navbarText }}">Gus & Kriss</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse {{ colors.navbarText }}"><i class="mdi mdi-menu"></i></a>
       <ul class="right hide-on-med-and-down">
         <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['inicio']">Inicio</a></li>
         <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['regalos']">Mesa de regalos</a></li>
+        <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['regalos']">Ingresar</a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
-        <li class="roboto-light"><a [routerLink]="['inicio']">Inicio</a></li>
-        <li class="roboto-light"><a [routerLink]="['regalos']">Pagina prueba</a></li>
+        <li class="roboto-light"><a [routerLink]="['inicio']"><i class="mdi mdi-home"></i>Inicio</a></li>
+        <li class="roboto-light"><a [routerLink]="['regalos']"><i class="mdi mdi-gift"></i>Mesa de regalos</a></li>
+        <li class="roboto-light"><a [routerLink]="['regalos']"><i class="mdi mdi-login"></i> Ingresar</a></li>
       </ul>
     </div>
   </nav>

@@ -10,7 +10,7 @@ declare var $: any;
 export class HomeComponent implements OnInit {
   colors:any;
   tiempo:any;
-  fechaBoda:string = '3 de marzo de 2018';
+  fechaBoda:string = '3 de marzo de 2018 - 17:30 hrs.';
 
   constructor( private _constantes: ConstantesService ) {
     $(document).ready(function(){
@@ -18,11 +18,18 @@ export class HomeComponent implements OnInit {
     });
 
     this.colors = this._constantes.colors();
-    this.tiempo = this._constantes.tiempo();
   }
 
   ngOnInit() {
-    console.log(this.tiempo);
+    this.actualizaRestante();
+  }
+
+  actualizaRestante(){
+    setTimeout(() => {
+      this.tiempo = this._constantes.tiempo();
+      this.actualizaRestante();
+      // console.log(this.tiempo);
+    }, 1000);
   }
 
 }
