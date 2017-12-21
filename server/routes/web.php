@@ -20,3 +20,4 @@ Route::get('/prueba', function () {
 });
 
 Route::post('/peticionpost', 'PruebasController@index');
+Route::post('/usuario', 'UsersController@login');
