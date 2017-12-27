@@ -53,10 +53,22 @@ main {
   height: 2em;
 }
 
+.txtMini{
+  font-size: 0.9em !important;
+}
+
+.txtSmall{
+  font-size: 1.2em !important;
+}
+
 .txtMedium{
   font-size: 1.5em !important;
 }
 
 .txtLarge{
   font-size: 2em !important;
+}
+
+.txtXL{
+  font-size: 3em !important;
 }

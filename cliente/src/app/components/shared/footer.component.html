@@ -1,25 +1,41 @@
 <footer class="page-footer {{ colors.footer }}">
   <div class="container">
     <div class="row">
-      <div class="col l6 s12">
-        <h5 class="{{ colors.footerPrimary }}">Footer Content</h5>
-        <p class="{{ colors.footerSecondary }}">You can use rows and columns here to organize your footer content.</p>
+      <div class="col l6 m6 s12">
+        <h5 class="{{ colors.footerPrimary }} sweet">Gustavo & Kristell</h5>
+        <p class="{{ colors.footerSecondary }} txtMedium">¡Gracias por visitar nuesta página!</p>
       </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="{{ colors.footerPrimary }}">Links</h5>
+      <div class="col l4 offset-l2 m6 s12 txtSmall">
+        <h5 class="{{ colors.footerPrimary }} txtMedium">Links</h5>
         <ul>
-          <li><a class="{{ colors.footerLink }}" href="#!">Link 1</a></li>
-          <li><a class="{{ colors.footerLink }}" href="#!">Link 2</a></li>
-          <li><a class="{{ colors.footerLink }}" href="#!">Link 3</a></li>
-          <li><a class="{{ colors.footerLink }}" href="#!">Link 4</a></li>
+          <li><a class="{{ colors.footerLink }}" [routerLink]="['inicio']">Inicio</a></li>
+          <li><a class="{{ colors.footerLink }}" [routerLink]="['regalos']">Regalos</a></li>
+          <li><a class="{{ colors.footerLink }}" href="https://goo.gl/maps/GqdbxBvV64v" target="_blank">Ubicación</a></li>
+          <li><a class="{{ colors.footerLink }} modal-trigger" href="#modal1">Ingresar</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="footer-copyright">
-    <div class="container {{ colors.footerSecondary }}">
-    © 2014 Copyright Text
-    <a class="{{ colors.footerLink }} right" href="#!">More Links</a>
+    <div class="container {{ colors.footerSecondary }} roboto-light txtMini">
+      <span class="right">
+        Desarrollado por
+        <a href="http://sramirez.hol.es/" class="{{ colors.footerLink }}" target="_blank">Samuel Ramírez</a>
+      </span>
     </div>
   </div>
 </footer>
+
+<!-- Modal Trigger -->
+<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>

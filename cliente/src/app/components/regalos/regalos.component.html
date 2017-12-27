@@ -2,13 +2,15 @@
   <div class="section no-pad-bot">
     <div class="container">
       <h2 class="header white-text sweet shadow-text">Mesa de regalos</h2>
-      <div class="row">
+      <!-- <div class="row">
         <h2 class="amatic white-text shadow-text"><b>¿Planeas darnos un regalo?</b></h2>
         <h2 class="amatic white-text shadow-text"><b>Aquí hay algunas sugerencias.</b></h2>
-      </div>
-<!--         <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
       </div> -->
+      <div class="row center">
+        <button type="button" class="btn-large waves-effect waves-light teal lighten-1 txtLarge">
+          Agregar Regalo
+        </button>
+      </div>
     </div>
   </div>
   <div class="parallax"><img src="../../assets/img/bg/regalos1.jpg"></div>
@@ -17,7 +19,7 @@
 <div class="espacio-doble"></div>
 
 <div class="container">
-  
+
 </div>
 
 <div class="espacio-doble"></div>
@@ -25,39 +27,61 @@
 <div class="container">
   <div class="row">
     <div class="col s6 m3 l3">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="../../assets/img/bg/flores1.jpg">
-          <span class="card-title">Card Title</span>
+      <div class="card" (click)="ctrlRecamara()">
+        <div class="card-image waves-effect waves-block waves-light center-align">
+          <img class="activator" src="../../assets/img/bg/bedroom2.jpg">
+          <span class="card-title shadow-text"><b>Recámara</b></span>
         </div>
       </div>
     </div>
 
     <div class="col s6 m3 l3">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="../../assets/img/bg/flores1.jpg">
-          <span class="card-title">Card Title</span>
+      <div class="card" (click)="ctrlSala()">
+        <div class="card-image waves-effect waves-block waves-light center-align">
+          <img class="activator" src="../../assets/img/bg/sala2.jpg">
+          <span class="card-title shadow-text"><b>Sala</b></span>
         </div>
       </div>
     </div>
 
     <div class="col s6 m3 l3">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="../../assets/img/bg/flores1.jpg">
-          <span class="card-title">Card Title</span>
+      <div class="card" (click)="ctrlCocina()">
+        <div class="card-image waves-effect waves-block waves-light center-align">
+          <img class="activator" src="../../assets/img/bg/kitchen2.jpg">
+          <span class="card-title shadow-text"><b>Cocina</b></span>
         </div>
       </div>
     </div>
 
     <div class="col s6 m3 l3">
-      <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator" src="../../assets/img/bg/flores1.jpg">
-          <span class="card-title">Card Title</span>
+      <div class="card" (click)="ctrlOtros()">
+        <div class="card-image waves-effect waves-block waves-light center-align">
+          <img class="activator" src="../../assets/img/bg/bathroom1.jpg">
+          <span class="card-title shadow-text"><b>Otros</b></span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container roboto-light">
+  <div *ngIf="!recamara && !sala && !cocina && !otros">
+    Esto se muestra solo al inicio
+  </div>
+
+  <div *ngIf="recamara">
+    Recamara
+  </div>
+
+  <div *ngIf="sala">
+    Sala
+  </div>
+
+  <div *ngIf="cocina">
+    Cocina
+  </div>
+
+  <div *ngIf="otros">
+    otros
   </div>
 </div>
