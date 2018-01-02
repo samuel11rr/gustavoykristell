@@ -23,11 +23,15 @@ class UsersController extends Controller
       $username	= Input::get('username');
       $password = Input::get('password');
 
-      $respuesta = DB::table('usuarios')
-                      ->select('USU_id', 'USU_nombre', 'USU_username', 'TIU_clave', DB::raw('CONCAT("true") as success'))
-											->where('USU_username', '=', $username)
-                      ->where('USU_password', '=', MD5($password))
-											->get();
+      try {
+        $respuesta = DB::table('usuarios')
+                        ->select('USU_id', 'USU_nombre', 'USU_username', 'TIU_clave', DB::raw('CONCAT("true") as success'))
+  											->where('USU_username', '=', $username)
+                        ->where('USU_password', '=', MD5($password))
+  											->get();
+      } catch (\Exception $e) {
+        $respuesta[] = array('success' => false, 'error' => $e );
+      }
 
   		return $respuesta;
     }
