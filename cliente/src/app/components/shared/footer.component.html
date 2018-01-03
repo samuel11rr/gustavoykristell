@@ -3,15 +3,16 @@
     <div class="row">
       <div class="col l6 m6 s12">
         <h5 class="{{ colors.footerPrimary }} sweet">Gustavo & Kristell</h5>
-        <p class="{{ colors.footerSecondary }} txtMedium">¡Gracias por visitar nuesta página!</p>
+        <p class="{{ colors.footerSecondary }} txtLarge">¡Gracias por visitar nuesta página!</p>
       </div>
       <div class="col l4 offset-l2 m6 s12 txtSmall">
-        <h5 class="{{ colors.footerPrimary }} txtMedium">Links</h5>
+        <h5 class="{{ colors.footerPrimary }} txtLarge">Links</h5>
         <ul>
-          <li><a class="{{ colors.footerLink }}" [routerLink]="['inicio']">Inicio</a></li>
-          <li><a class="{{ colors.footerLink }}" [routerLink]="['regalos']">Regalos</a></li>
-          <li><a class="{{ colors.footerLink }}" href="https://goo.gl/maps/GqdbxBvV64v" target="_blank">Ubicación</a></li>
-          <li><a class="{{ colors.footerLink }} modal-trigger" href="#modal1">Ingresar</a></li>
+          <li><a class="{{ colors.footerLink }} txtSmall" [routerLink]="['inicio']">Inicio</a></li>
+          <li><a class="{{ colors.footerLink }} txtSmall" [routerLink]="['regalos']">Regalos</a></li>
+          <li><a class="{{ colors.footerLink }} txtSmall" href="https://goo.gl/maps/GqdbxBvV64v" target="_blank">Ubicación</a></li>
+          <li *ngIf="!session"><a class="{{ colors.footerLink }} txtSmall modal-trigger" href="#modalLogin">Ingresar</a></li>
+          <li *ngIf="session"><a class="{{ colors.footerLink }} txtSmall modal-trigger" href="#modalSalir">Salir</a></li>
         </ul>
       </div>
     </div>
@@ -26,16 +27,86 @@
   </div>
 </footer>
 
-<!-- Modal Trigger -->
-<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+<!-- Modal Login -->
+<div id="modalLogin" class="modal">
+  <form [formGroup]="logueo" (ngSubmit)="enviaCredenciales()">
+    <div class="modal-content roboto-light">
+        <h4 class="sweet">Inicio de sesión</h4>
+        <p>Ingresa con tu usuario y contraseña</p>
 
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <i class="mdi mdi-account prefix" [ngClass]="{'invalid': !logueo.controls.username.valid}"></i>
+            <input id="username" type="text" class="validate" formControlName="username">
+            <label for="username">Usuario</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <i class="mdi mdi-key-variant prefix"></i>
+            <input id="pass" type="password" class="validate" formControlName="password">
+            <label for="pass">Contraseña</label>
+          </div>
+          <div class="col s12 m12 right-align">
+              <input type="checkbox" id="recordar" formControlName="remember" />
+              <label for="recordar">Recordar <i class="mdi mdi-lock-open prefix"></i></label>
+          </div>
+        </div>
+
+        <div class="progress pink lighten-5" *ngIf="trabajando">
+            <div class="indeterminate pink lighten-2"></div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+      <a class="grey lighten-1 waves-effect waves-light btn txtMedium" (click)="cerrarLogueo()"
+        [ngClass]="{'disabled': trabajando }">
+        <i class="mdi mdi-close-circle left"></i>Cerrar
+      </a>
+
+      <button class="pink lighten-3 waves-effect waves-light btn txtMedium" type="submit"
+              [ngClass]="{'disabled': !logueo.valid || trabajando}">
+        <i class="mdi mdi-send right"></i>
+        Entrar
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!-- Modal Bienvenida -->
+<div id="modalWelcome" class="modal">
   <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
+    <h4 class="amatic txtXL">¡Hola {{ usuario.USU_nombre }}!</h4>
+
+    <p class="roboto-light">
+      Espera un momento...
+    </p>
+    <div class="progress pink lighten-5">
+        <div class="indeterminate pink lighten-2"></div>
+    </div>
   </div>
+</div>
+
+<!-- Modal Confirma Salir -->
+<div id="modalSalir" class="modal">
+  <div class="modal-content">
+    <h4 class="amatic txtXL">Cerrar sesión</h4>
+
+    <p class="roboto-light">
+      ¿De verdad deseas salir?
+    </p>
+    <div class="progress pink lighten-5" *ngIf="trabajando">
+        <div class="indeterminate pink lighten-2"></div>
+    </div>
+  </div>
+
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    <a class="grey lighten-1 waves-effect waves-light btn txtMedium modal-action modal-close">
+      <i class="mdi mdi-close-circle left"></i>Cancelar
+    </a>
+
+    <button class="pink lighten-3 waves-effect waves-light btn txtMedium" (click)="logout()">
+      <i class="mdi mdi-logout right"></i>
+      Salir
+    </button>
   </div>
 </div>

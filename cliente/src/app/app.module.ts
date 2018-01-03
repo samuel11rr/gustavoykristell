@@ -1,8 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { LOCALE_ID } from '@angular/core';
 
 // SERVICIOS
 import { ConstantesService } from './services/constantes.service';
+import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api.service';
 
 //RUTAS
 import { APP_ROUTING } from './app.routes';
@@ -24,10 +29,16 @@ import { RegalosComponent } from './components/regalos/regalos.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
     APP_ROUTING
   ],
   providers: [
-    ConstantesService
+    { provide: LOCALE_ID, useValue: "esMX" },
+    ConstantesService,
+    AuthService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

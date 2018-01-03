@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConstantesService {
-  apiUrl:string = 'http://localhost/gustavoykristell/server/public/';
-  // apiUrl:string = 'http://gusykriss.hol.es/api/';
+  apiUrl:string = 'http://localhost/gustavoykristell/server/public';
+  // apiUrl:string = 'http://gusykriss.hol.es/api';
 
   colores = {
     navbar: 'teal accent-1',

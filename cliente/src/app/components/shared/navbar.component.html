@@ -7,12 +7,26 @@
       <ul class="right hide-on-med-and-down">
         <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['inicio']">Inicio</a></li>
         <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light" [routerLink]="['regalos']">Mesa de regalos</a></li>
-        <li><a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light modal-trigger" href="#modal1">Ingresar</a></li>
+        <!-- <li *ngIf="!session">
+          <a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light modal-trigger" href="#modalLogin">Ingresar</a>
+        </li>
+        <li *ngIf="session">
+          <a class="{{ colors.navbarLink }} txtLarge waves-effect waves-light modal-trigger" href="#modalSalir">Salir</a>
+        </li> -->
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li class="roboto-light"><a [routerLink]="['inicio']"><i class="mdi mdi-home"></i>Inicio</a></li>
         <li class="roboto-light"><a [routerLink]="['regalos']"><i class="mdi mdi-gift"></i>Mesa de regalos</a></li>
-        <li class="roboto-light"><a class="waves-effect waves-light modal-trigger" href="#modal1"><i class="mdi mdi-login"></i> Ingresar</a></li>
+        <!-- <li class="roboto-light" *ngIf="!session">
+          <a class="waves-effect waves-light modal-trigger" href="#modalLogin">
+            <i class="mdi mdi-login"></i> Ingresar
+          </a>
+        </li>
+        <li class="roboto-light" *ngIf="session">
+          <a class="waves-effect waves-light modal-trigger" href="#modalSalir">
+            <i class="mdi mdi-login"></i> Salir
+          </a>
+        </li> -->
       </ul>
     </div>
   </nav>
