@@ -20,7 +20,6 @@ export class RegalosComponent implements OnInit {
 
   constructor( private _auth: AuthService,
                private _api: ApiService ) {
-
     this.categorias = this._api.getCategorias();
 
     $(document).ready(function(){
@@ -30,9 +29,18 @@ export class RegalosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.categorias);
+    this.getCategorias();
   }
 
+  getCategorias(){
+    // this.buscando = true;
+    this._api.getCategorias()
+                          .subscribe( data => {
+                            this.categorias = data;
+                            console.log(this.categorias);
+                            // this.buscando = false;
+                          });
+  }
   sesion(){
     return this._auth.checkSession();
   }
