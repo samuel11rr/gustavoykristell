@@ -9,15 +9,6 @@ use Input;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-      $respuesta = DB::table('usuarios')
-											->where('USU_id', '=', 1)
-											->get();
-
-  		return $respuesta;
-    }
-
     public function login()
     {
       $username	= Input::get('username');

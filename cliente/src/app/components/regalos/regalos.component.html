@@ -7,7 +7,8 @@
         <h2 class="amatic white-text shadow-text"><b>Aquí hay algunas sugerencias.</b></h2>
       </div> -->
       <div class="row center">
-        <button type="button" class="btn-large waves-effect waves-light teal lighten-1 txtLarge">
+        <button type="button" class="btn-large waves-effect waves-light teal lighten-1 txtLarge"
+                *ngIf="sesion()" (click)="mostrarEditor()">
           Agregar Regalo
         </button>
       </div>
@@ -18,8 +19,11 @@
 
 <div class="espacio-doble"></div>
 
-<div class="container">
+<div class="container roboto-light" *ngIf="editor">
+  {{ categorias }}
+  <form>
 
+  </form>
 </div>
 
 <div class="espacio-doble"></div>

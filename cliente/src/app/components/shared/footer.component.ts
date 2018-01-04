@@ -48,10 +48,10 @@ export class FooterComponent implements OnInit {
   verificaSesion() {
     this.session = this._auth.checkSession();
 
-    console.log( this.session );
+    // console.log( this.session );
     if ( this.session === true ) {
         this.usuario = JSON.parse(sessionStorage.getItem('usuario'))[0];
-        console.log(this.usuario);
+        // console.log(this.usuario);
     }
   }
 
@@ -101,22 +101,22 @@ export class FooterComponent implements OnInit {
               },
               (error) => {
                 this.trabajando = false;
-                alert('Intentelo más tarde (Error '+error.status+').');
+                alert('Intentelo más tarde (Error '+ error.status +').');
                 // console.log(error);
                 this.cerrarLogueo();
               })
   }
 
   logout(){
-    this.trabajando=true;
+    // this.trabajando=true;
 
     this._auth.logout();
     this.verificaSesion();
 
     setTimeout(function() {
       $('#modalSalir').modal('close');
-      this.trabajando=false;
-    }, 1500);
+      // this.trabajando=false;
+    }, 500);
   }
 
 }

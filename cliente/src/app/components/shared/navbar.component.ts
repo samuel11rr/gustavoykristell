@@ -22,4 +22,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  sesion(){
+    return this._auth.checkSession();
+  }
+
 }

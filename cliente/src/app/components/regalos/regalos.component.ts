@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ConstantesService } from '../../services/constantes.service';
+import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 declare var $: any;
 
@@ -11,8 +14,15 @@ export class RegalosComponent implements OnInit {
   sala: boolean = false;
   cocina: boolean = false;
   otros: boolean = false;
+  editor: boolean = false;
 
-  constructor() {
+  categorias:any = [];
+
+  constructor( private _auth: AuthService,
+               private _api: ApiService ) {
+
+    this.categorias = this._api.getCategorias();
+
     $(document).ready(function(){
       $('.parallax').parallax();
       $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -20,6 +30,15 @@ export class RegalosComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.categorias);
+  }
+
+  sesion(){
+    return this._auth.checkSession();
+  }
+
+  mostrarEditor(){
+    this.editor = !this.editor;
   }
 
   ctrlRecamara(){

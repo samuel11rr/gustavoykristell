@@ -19,5 +19,5 @@ Route::get('/prueba', function () {
     return 'Esto viene desde laravel via GET';
 });
 
-Route::post('/peticionpost', 'PruebasController@index');
 Route::post('/usuario', 'UsersController@login');
+Route::get('/getCategorias', 'CatalogosController@categoriasArticulos');

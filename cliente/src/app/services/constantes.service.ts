@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ConstantesService {
-  apiUrl:string = 'http://localhost/gustavoykristell/server/public';
-  // apiUrl:string = 'http://gusykriss.hol.es/api';
+  // apiUrl:string = 'http://localhost/gustavoykristell/server/public';
+  apiUrl:string = 'http://gusykriss.hol.es/api';
 
   colores = {
     navbar: 'teal accent-1',
@@ -18,6 +18,7 @@ export class ConstantesService {
     footerSecondary: 'grey-text text-lighten-4',
     footerLink: 'grey-text text-lighten-3'
   }
+
   constructor() { }
 
   api(){

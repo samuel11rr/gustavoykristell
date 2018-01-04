@@ -25,8 +25,19 @@ export class ApiService {
               .catch(this.handleError);
   }
 
+  getCategorias(){
+    let url = `${ this.api }/getCategorias`;
+
+    return this._http.get( url )
+               .map( res => {
+                 return res.json();
+               });
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     return Observable.throw(error);
   }
+
+
 }
