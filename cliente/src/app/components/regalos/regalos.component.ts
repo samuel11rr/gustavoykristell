@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ConstantesService } from '../../services/constantes.service';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
@@ -10,6 +11,7 @@ declare var $: any;
   templateUrl: './regalos.component.html'
 })
 export class RegalosComponent implements OnInit {
+  articulosForm:FormGroup;
   recamara: boolean = false;
   sala: boolean = false;
   cocina: boolean = false;
@@ -25,6 +27,19 @@ export class RegalosComponent implements OnInit {
     $(document).ready(function(){
       $('.parallax').parallax();
       $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+
+    this.articulosForm = new FormGroup({
+      'categoria': new FormControl( 0, [
+                                         Validators.required
+                                        ]),
+      'nombre': new FormControl( '', [
+                                      Validators.minLength(3),
+                                      Validators.required
+                                     ]),
+      'descripcion': new FormControl( '', []),
+      'imagen': new FormControl( null, []),
+       // 'remember': new FormControl(false),
     });
   }
 
@@ -75,5 +90,35 @@ export class RegalosComponent implements OnInit {
     this.recamara   = false;
     this.sala       = false;
     this.cocina     = false;
+  }
+
+  alSeleccionarArchivo( event ) {
+    let img = document.createElement("img"); //agregado
+
+    let reader = new FileReader();
+
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let base64Full = {
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result.split(',')[1]
+        }
+
+        this.resizeImg( file, base64Full );
+        // this.articulosForm.get('imagen').setValue({
+        //   filename: file.name,
+        //   filetype: file.type,
+        //   value: reader.result.split(',')[1]
+        // })
+        // console.log(this.articulosForm.get('imagen').value);
+      };
+    }
+  }
+
+  resizeImg( file, base64Full ){
+    console.log( file, base64Full );
   }
 }
