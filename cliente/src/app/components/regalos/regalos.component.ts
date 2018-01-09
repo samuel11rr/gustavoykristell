@@ -20,6 +20,15 @@ export class RegalosComponent implements OnInit {
 
   categorias:any = [];
 
+  articuloNuevo = {
+  }
+
+  img:any =  {
+    filename: null,
+    filetype: null,
+    value: null
+  }
+
   constructor( private _auth: AuthService,
                private _api: ApiService ) {
     this.categorias = this._api.getCategorias();
@@ -50,11 +59,11 @@ export class RegalosComponent implements OnInit {
   getCategorias(){
     // this.buscando = true;
     this._api.getCategorias()
-                          .subscribe( data => {
-                            this.categorias = data;
-                            console.log(this.categorias);
-                            // this.buscando = false;
-                          });
+              .subscribe( data => {
+                this.categorias = data;
+                console.log(this.categorias);
+                // this.buscando = false;
+              });
   }
   sesion(){
     return this._auth.checkSession();
@@ -93,32 +102,70 @@ export class RegalosComponent implements OnInit {
   }
 
   alSeleccionarArchivo( event ) {
-    let img = document.createElement("img"); //agregado
-
     let reader = new FileReader();
 
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        let base64Full = {
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.split(',')[1]
-        }
-
-        this.resizeImg( file, base64Full );
-        // this.articulosForm.get('imagen').setValue({
+        // let base64Full = {
         //   filename: file.name,
         //   filetype: file.type,
         //   value: reader.result.split(',')[1]
-        // })
-        // console.log(this.articulosForm.get('imagen').value);
+        // }
+        this.resizeImg( file );
       };
     }
   }
 
-  resizeImg( file, base64Full ){
-    console.log( file, base64Full );
+  resizeImg( file ){
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
+
+    let maxW = 300;
+    let maxH = 300;
+
+    let img = document.createElement('img');
+let imagen
+    img.onload = function(){
+      let imgW = img.width;
+      let imgH = img.height;
+
+      let scale = Math.min( ( maxW / imgW ), ( maxH / imgH ) );
+      let newW = imgW*scale;
+      let newH = imgH*scale;
+
+      canvas.width = newW;
+      canvas.height = newH;
+
+      context.drawImage( img, 0, 0, newW, newH );
+      // console.log( canvas.toDataURL() );
+      // return canvas.toDataURL();
+      imagen = new Image();
+      imagen.src = canvas.toDataURL();
+
+      document.body.appendChild(imagen)
+
+      //esto solo muestra el base64 de la imagen en el body
+      // document.body.innerHTML+=canvas.toDataURL();
+    }
+
+    img.src = URL.createObjectURL(file);
+    img.setAttribute('id', 'imgNueva')
+
+    console.log( canvas.toDataURL() );
+    console.log( img );
+
+    document.body.innerHTML+=img;
   }
+
+
+  guardaArticulo(){
+    console.log( this.img );
+    this._api.guardaArticulo( this.img )
+              .subscribe( data => {
+                console.log(data);
+              });
+  }
+
 }

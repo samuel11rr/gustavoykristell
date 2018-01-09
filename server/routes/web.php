@@ -21,3 +21,4 @@ Route::get('/prueba', function () {
 
 Route::post('/usuario', 'UsersController@login');
 Route::get('/getCategorias', 'CatalogosController@categoriasArticulos');
+Route::post('/articulo', 'CatalogosController@guardaArticulo');

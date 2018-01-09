@@ -33,6 +33,18 @@ export class ApiService {
                });
   }
 
+  guardaArticulo( imagen ){
+   let url = `${ this.api }/articulo`;
+   let headers = new Headers({
+     'Content-Type':'aplication/json'
+   });
+   return this._http.post( url, imagen, {headers} )
+              .map( res => {
+                return res.json();
+              })
+              .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     return Observable.throw(error);
