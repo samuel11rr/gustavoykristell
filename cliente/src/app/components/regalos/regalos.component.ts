@@ -113,6 +113,10 @@ export class RegalosComponent implements OnInit {
         //   filetype: file.type,
         //   value: reader.result.split(',')[1]
         // }
+
+        this.img.filename = file.name;
+        this.img.filetype = file.type;
+
         this.resizeImg( file );
       };
     }
@@ -144,27 +148,51 @@ let imagen
       imagen = new Image();
       imagen.src = canvas.toDataURL();
 
-      document.body.appendChild(imagen)
-
+      document.body.appendChild(imagen);
+      // document.body.innerHTML+=imagen;
+      imagen.setAttribute('id', 'imgNueva');
+      document.getElementById('imgNueva').style.display = 'none';
+      console.log(document.getElementById('imgNueva'));
       //esto solo muestra el base64 de la imagen en el body
       // document.body.innerHTML+=canvas.toDataURL();
     }
 
     img.src = URL.createObjectURL(file);
-    img.setAttribute('id', 'imgNueva')
+    // img.setAttribute('id', 'imgNueva')
 
-    console.log( canvas.toDataURL() );
-    console.log( img );
+    // console.log( canvas.toDataURL() );
+    // console.log( img.src );
 
-    document.body.innerHTML+=img;
+
+    // document.body.innerHTML+=img.src;
   }
 
 
   guardaArticulo(){
-    console.log( this.img );
-    this._api.guardaArticulo( this.img )
+    if ( this.img.filename != null ) {
+        this.img.value = document.getElementById('imgNueva').getAttribute('src').split(',')[1]
+    }
+    // let imagen = {
+    //   filename: this.img.filename,
+    //   filetype: this.img.filetype,
+    //   value: document.getElementById('imgNueva').getAttribute('src').split(',')[1],
+    // }
+
+    let datos = {
+      img: this.img
+    }
+    console.log(datos);
+    this._api.guardaArticulo( datos )
               .subscribe( data => {
                 console.log(data);
+
+                if (data.respuesta === 'correcto') {
+                  document.getElementById('imgNueva').remove();
+                  this.img.value = null;
+                  this.img.filename = null;
+                  this.img.filetype = null;
+                  console.log(this.img);
+                }
               });
   }
 

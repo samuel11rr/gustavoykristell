@@ -42,7 +42,7 @@ export class ApiService {
               .map( res => {
                 return res.json();
               })
-              .catch(this.handleError);
+              // .catch(this.handleError);
   }
 
   private handleError(error: any) {
