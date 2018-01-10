@@ -9,7 +9,8 @@
       <div class="row center">
         <button type="button" class="btn-large waves-effect waves-light teal lighten-1 txtLarge"
                 *ngIf="sesion()" (click)="mostrarEditor()">
-          Agregar Regalo
+          <span *ngIf="!editor">Agregar Regalo</span>
+          <span *ngIf="editor">Cerrar</span>
         </button>
       </div>
     </div>
@@ -21,24 +22,31 @@
 
 <div class="container roboto-light" *ngIf="editor">
   Agregar
-  <form [formGroup]="articulosForm">
+  <form [formGroup]="articulosForm" (ngSubmit)="guardaArticulo()" novalidate>
     <select class="browser-default"
             *ngIf="categorias.length > 0"
             formControlName="categoria">
-      <option value="">Categoría</option>
+      <option value="0" selected disabled>* Categoría</option>
       <option value="{{ item.TIA_clave }}" *ngFor="let item of categorias">{{ item.TIA_nombre }}</option>
     </select>
 
     <div class="input-field">
       <input id="Nombre" type="text" class="validate"
+             [ngClass]="{'invalid': !articulosForm.controls.nombre.valid && !articulosForm.controls.nombre.pristine }"
              formControlName="nombre">
       <label for="Nombre">Nombre</label>
     </div>
 
     <div class="input-field">
-      <input id="qwerty" type="text" class="validate"
+      <input id="desc" type="text" class="validate"
              formControlName="descripcion">
       <label for="qwerty">Descripción</label>
+    </div>
+
+    <div class="input-field">
+      <input id="url" type="text" class="validate"
+             formControlName="enlace">
+      <label for="qwerty">Enlace</label>
     </div>
 
     <div class="file-field input-field">
@@ -48,12 +56,13 @@
                (change)="alSeleccionarArchivo($event)" #fileInput>
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" >
+        <input class="file-path validate" type="text">
       </div>
     </div>
 
     <div class="row">
-      <button class="btn waves-effect waves-light" type="submit" name="action" (click)="guardaArticulo()">
+      <button class="btn waves-effect waves-light btn-large" type="submit" name="action"
+              [ngClass]="{'disabled': !articulosForm.valid}">
         Enviar
         <i class="mdi mdi-send"></i>
       </button>

@@ -40,13 +40,15 @@ export class RegalosComponent implements OnInit {
 
     this.articulosForm = new FormGroup({
       'categoria': new FormControl( 0, [
-                                         Validators.required
+                                         Validators.required,
+                                         Validators.min(1)
                                         ]),
       'nombre': new FormControl( '', [
                                       Validators.minLength(3),
                                       Validators.required
                                      ]),
       'descripcion': new FormControl( '', []),
+      'enlace': new FormControl( '', []),
       'imagen': new FormControl( null, []),
        // 'remember': new FormControl(false),
     });
@@ -123,14 +125,17 @@ export class RegalosComponent implements OnInit {
   }
 
   resizeImg( file ){
+    if (document.getElementById('imgNueva')) {
+        document.getElementById('imgNueva').remove();
+    }
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
-
-    let maxW = 300;
-    let maxH = 300;
+    let maxW = 800;
+    let maxH = 800;
 
     let img = document.createElement('img');
-let imagen
+    let imagen;
+
     img.onload = function(){
       let imgW = img.width;
       let imgH = img.height;
@@ -143,8 +148,8 @@ let imagen
       canvas.height = newH;
 
       context.drawImage( img, 0, 0, newW, newH );
-      // console.log( canvas.toDataURL() );
-      // return canvas.toDataURL();
+
+      //creamos la imagen nueva de con la redimension
       imagen = new Image();
       imagen.src = canvas.toDataURL();
 
@@ -158,12 +163,8 @@ let imagen
     }
 
     img.src = URL.createObjectURL(file);
-    // img.setAttribute('id', 'imgNueva')
-
     // console.log( canvas.toDataURL() );
     // console.log( img.src );
-
-
     // document.body.innerHTML+=img.src;
   }
 
@@ -172,26 +173,31 @@ let imagen
     if ( this.img.filename != null ) {
         this.img.value = document.getElementById('imgNueva').getAttribute('src').split(',')[1]
     }
-    // let imagen = {
-    //   filename: this.img.filename,
-    //   filetype: this.img.filetype,
-    //   value: document.getElementById('imgNueva').getAttribute('src').split(',')[1],
-    // }
 
     let datos = {
-      img: this.img
+      categoria: this.articulosForm.controls.categoria.value,
+      nombre: this.articulosForm.controls.nombre.value,
+      descripcion: this.articulosForm.controls.descripcion.value,
+      enlace: this.articulosForm.controls.enlace.value,
+      img: this.img,
+      usuario: JSON.parse(sessionStorage.getItem('usuario'))[0].USU_username
     }
-    console.log(datos);
+
     this._api.guardaArticulo( datos )
               .subscribe( data => {
                 console.log(data);
 
                 if (data.respuesta === 'correcto') {
-                  document.getElementById('imgNueva').remove();
+                  if (document.getElementById('imgNueva')) {
+                      document.getElementById('imgNueva').remove();
+                  }
                   this.img.value = null;
                   this.img.filename = null;
                   this.img.filetype = null;
                   console.log(this.img);
+                  datos = undefined;
+                  console.log(datos);
+                  this.articulosForm.reset();
                 }
               });
   }

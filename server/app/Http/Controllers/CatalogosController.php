@@ -17,6 +17,26 @@ class CatalogosController extends Controller
     public function guardaArticulo(){
       $data = Input::all();
 
+      $nombre       = CatalogosController::limpiaCadena( Input::get('nombre') );
+      $descripcion  = CatalogosController::limpiaCadena( Input::get('descripcion') );
+      $categoria    = Input::get('categoria');
+      $enlace       = Input::get('enlace');
+      $usuario      = Input::get('usuario');
+
+      try {
+        $idArticulo = DB::table('articulos')
+    										->insertGetId([ 'ART_nombre' => $nombre,
+                                        'TIA_clave' => $categoria,
+                                        'ART_descripcion' => $descripcion,
+                                        'ART_url' => $enlace,
+                                        'ART_creador'=> $usuario
+    																	]);
+      } catch (Exception $e) {
+
+      }
+
+      $resImg = 'N/A';
+      
       if ($data['img']['value'] != '') {
         //creamos la carpeta de subidas si es que no existe
         $carpeta = '../imgArticulos/';
@@ -37,8 +57,26 @@ class CatalogosController extends Controller
 
         //eliminamos la imagen que quedó en la carpeta publica
         unlink($data['img']['filename']);
+
+        try {
+    			$resImg = DB::table('articulos')
+    											->where('ART_id', $idArticulo)
+    											->update(['ART_img'	=> $nombreNuevo]);
+    		} catch (Exception $e) {
+    			$resImg = array('error' => $e, 'mensaje' => 'error al actualizar');
+    		}
       }
 
-      return array('respuesta' => 'correcto');
+      return array('respuesta' => 'correcto', 'DB' => $idArticulo, 'img' => $resImg);
     }
+
+    public function limpiaCadena( $cadena )
+  	{
+  		$noPermitidos = array("'", '\\', '<', '>', "\"");
+  		$cadenaLimpia = str_replace($noPermitidos,"", $cadena);
+
+  		return $cadenaLimpia;
+  	}
+
+
 }
