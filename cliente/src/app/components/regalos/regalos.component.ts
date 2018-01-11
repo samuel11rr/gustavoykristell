@@ -18,10 +18,12 @@ export class RegalosComponent implements OnInit {
   otros: boolean = false;
   editor: boolean = false;
 
-  categorias:any = [];
+  categoria : number = 0;
 
-  articuloNuevo = {
-  }
+  buscando: boolean = false;
+
+  categorias:any = [];
+  articulos:any = [];
 
   img:any =  {
     filename: null,
@@ -36,6 +38,7 @@ export class RegalosComponent implements OnInit {
     $(document).ready(function(){
       $('.parallax').parallax();
       $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('.materialboxed').materialbox();
     });
 
     this.articulosForm = new FormGroup({
@@ -56,6 +59,7 @@ export class RegalosComponent implements OnInit {
 
   ngOnInit() {
     this.getCategorias();
+    this.getArticulos();
   }
 
   getCategorias(){
@@ -67,6 +71,17 @@ export class RegalosComponent implements OnInit {
                 // this.buscando = false;
               });
   }
+
+  getArticulos(){
+    this.buscando = true;
+    this._api.getArticulos()
+              .subscribe( data => {
+                this.articulos = data;
+                console.log(this.articulos);
+                this.buscando = false;
+              });
+  }
+
   sesion(){
     return this._auth.checkSession();
   }
@@ -80,6 +95,7 @@ export class RegalosComponent implements OnInit {
     this.sala       = false;
     this.cocina     = false;
     this.otros      = false;
+    this.categoria  = 2;
   }
 
   ctrlSala(){
@@ -87,6 +103,7 @@ export class RegalosComponent implements OnInit {
     this.recamara   = false;
     this.cocina     = false;
     this.otros      = false;
+    this.categoria  = 1;
   }
 
   ctrlCocina(){
@@ -94,6 +111,7 @@ export class RegalosComponent implements OnInit {
     this.recamara   = false;
     this.sala       = false;
     this.otros      = false;
+    this.categoria  = 3;
   }
 
   ctrlOtros(){
@@ -101,6 +119,7 @@ export class RegalosComponent implements OnInit {
     this.recamara   = false;
     this.sala       = false;
     this.cocina     = false;
+    this.categoria  = 4;
   }
 
   alSeleccionarArchivo( event ) {
@@ -190,6 +209,7 @@ export class RegalosComponent implements OnInit {
                 if (data.respuesta === 'correcto') {
                   if (document.getElementById('imgNueva')) {
                       document.getElementById('imgNueva').remove();
+                      this.getArticulos();
                   }
                   this.img.value = null;
                   this.img.filename = null;
@@ -200,6 +220,30 @@ export class RegalosComponent implements OnInit {
                   this.articulosForm.reset();
                 }
               });
+  }
+
+  apartaRegalo( item ){
+    console.log( item );
+    alert(item.ART_nombre);
+  }
+  eliminaRegalo( item ){
+    console.log( item );
+
+    let datos = {
+      idArticulo: item.ART_id,
+      usuario: JSON.parse(sessionStorage.getItem('usuario'))[0].USU_username
+    }
+
+    this._api.eliminaArticulo( datos )
+              .subscribe( data => {
+                console.log( data );
+                if (data.respuesta === 1) {
+                  this.getArticulos();
+                } else{
+                  alert('hubo un error');
+                }
+              });
+
   }
 
 }

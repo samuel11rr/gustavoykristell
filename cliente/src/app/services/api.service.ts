@@ -33,16 +33,37 @@ export class ApiService {
                });
   }
 
-  guardaArticulo( imagen ){
+  getArticulos(){
+    let url = `${ this.api }/getArticulos`;
+
+    return this._http.get( url )
+               .map( res => {
+                 return res.json();
+               });
+  }
+
+  guardaArticulo( datos ){
    let url = `${ this.api }/articulo`;
    let headers = new Headers({
      'Content-Type':'aplication/json'
    });
-   return this._http.post( url, imagen, {headers} )
+   return this._http.post( url, datos, {headers} )
               .map( res => {
                 return res.json();
               })
-              // .catch(this.handleError);
+              .catch(this.handleError);
+  }
+
+  eliminaArticulo( datos ){
+   let url = `${ this.api }/delArticulo`;
+   let headers = new Headers({
+     'Content-Type':'aplication/json'
+   });
+   return this._http.post( url, datos, {headers} )
+              .map( res => {
+                return res.json();
+              })
+              .catch(this.handleError);
   }
 
   private handleError(error: any) {

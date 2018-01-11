@@ -20,5 +20,8 @@ Route::get('/prueba', function () {
 });
 
 Route::post('/usuario', 'UsersController@login');
-Route::get('/getCategorias', 'CatalogosController@categoriasArticulos');
 Route::post('/articulo', 'CatalogosController@guardaArticulo');
+Route::get('/getCategorias', 'CatalogosController@categoriasArticulos');
+Route::get('/getArticulos', 'CatalogosController@listadoArticulos');
+Route::post('/delArticulo', 'CatalogosController@eliminaArticulo');
+Route::post('/donador', 'CatalogosController@asignaDonador');

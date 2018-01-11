@@ -36,7 +36,7 @@ class CatalogosController extends Controller
       }
 
       $resImg = 'N/A';
-      
+
       if ($data['img']['value'] != '') {
         //creamos la carpeta de subidas si es que no existe
         $carpeta = '../imgArticulos/';
@@ -70,13 +70,60 @@ class CatalogosController extends Controller
       return array('respuesta' => 'correcto', 'DB' => $idArticulo, 'img' => $resImg);
     }
 
-    public function limpiaCadena( $cadena )
-  	{
+    public function limpiaCadena( $cadena ) {
   		$noPermitidos = array("'", '\\', '<', '>', "\"");
   		$cadenaLimpia = str_replace($noPermitidos,"", $cadena);
 
   		return $cadenaLimpia;
   	}
+
+    public function listadoArticulos() {
+      return DB::table('articulos')->get();
+  	}
+
+    public function eliminaArticulo() {
+      $idArticulo = Input::get('idArticulo');
+      $usuario    = Input::get('usuario');
+
+      try {
+        $usrExists = DB::table('usuarios')
+                        ->select('USU_username')
+                        ->where('USU_username', $usuario)
+                        ->where('USU_activo', 1)
+                        ->get();
+
+        if ( sizeof($usrExists) > 0 && $usrExists[0]->USU_username == $usuario) {
+          $respuesta = DB::table('articulos')
+                          ->where('ART_id', $idArticulo)
+                          ->delete();
+        } else{
+          $respuesta = 'no permitido';
+        }
+      } catch (Exception $e) {
+        $respuesta = $e;
+      }
+
+      return array( 'respuesta' => $respuesta );
+  	}
+
+    public function asignaDonador() {
+      $idArticulo = Input::get('idArticulo');
+      $donador    = Input::get('donador');
+
+      try {
+        $respuesta = DB::table('articulos')
+                        ->where('ART_id', $idArticulo)
+                        ->update([
+                                  'ART_donador'   => $donador,
+                                  'ART_apartado'  => DB::raw('1')
+                                  ]);
+      } catch (Exception $e) {
+        $respuesta = $e;
+      };
+
+      return array( 'respuesta' => $respuesta );
+  	}
+
 
 
 }
