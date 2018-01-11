@@ -12,15 +12,17 @@ declare var $: any;
 })
 export class RegalosComponent implements OnInit {
   articulosForm:FormGroup;
+  donadorForm:FormGroup;
+
   recamara: boolean = false;
   sala: boolean = false;
   cocina: boolean = false;
   otros: boolean = false;
   editor: boolean = false;
-
   categoria : number = 0;
 
   buscando: boolean = false;
+  trabajando: boolean = false;
 
   categorias:any = [];
   articulos:any = [];
@@ -57,6 +59,13 @@ export class RegalosComponent implements OnInit {
       'enlace': new FormControl( '', []),
       'imagen': new FormControl( null, []),
        // 'remember': new FormControl(false),
+    });
+
+    this.donadorForm = new FormGroup({
+      'nombre': new FormControl( null, [
+                                      Validators.minLength(3),
+                                      Validators.required
+                                     ])
     });
   }
 
@@ -192,6 +201,8 @@ export class RegalosComponent implements OnInit {
 
 
   guardaArticulo(){
+    this.trabajando = true;
+
     if ( this.img.filename != null ) {
         this.img.value = document.getElementById('imgNueva').getAttribute('src').split(',')[1]
     }
@@ -207,7 +218,7 @@ export class RegalosComponent implements OnInit {
 
     this._api.guardaArticulo( datos )
               .subscribe( data => {
-                console.log(data);
+                // console.log(data);
 
                 if (data.respuesta === 'correcto') {
                   if (document.getElementById('imgNueva')) {
@@ -217,22 +228,45 @@ export class RegalosComponent implements OnInit {
                   this.img.value = null;
                   this.img.filename = null;
                   this.img.filetype = null;
-                  console.log(this.img);
+                  // console.log(this.img);
                   datos = undefined;
-                  console.log(datos);
+                  // console.log(datos);
+                  this.trabajando = false;
                   this.articulosForm.reset();
+                } else {
+                  alert('hubo un error');
+                  this.trabajando = false;
                 }
               });
   }
 
   apartaRegalo( item ){
-    console.log( item );
     this.porApartar = item;
-    this.porApartar.nombre = null;
     this.porApartar.mensaje = null;
-    // alert(item.ART_nombre);
     $('#modalAparta').modal('open');
   }
+
+  confirmaApartado(){
+    this.trabajando = true;
+    this.porApartar.donador = this.donadorForm.controls.nombre.value;
+    console.log( this.porApartar );
+
+    this._api.apartaArticulo( this.porApartar )
+             .subscribe( data => {
+               // console.log( data );
+               if ( data.respuesta === 1 ) {
+                 $('#modalAparta').modal('close');
+                 this.getArticulos();
+                 this.porApartar = {};
+                 this.donadorForm.reset();
+                 this.trabajando = false;
+               } else {
+                 this.trabajando = false;
+                 alert('hubo un error');
+               };
+             });
+  }
+
   eliminaRegalo( item ){
     console.log( item );
 
@@ -251,7 +285,6 @@ export class RegalosComponent implements OnInit {
                   alert('hubo un error');
                 }
               });
-
   }
 
 }

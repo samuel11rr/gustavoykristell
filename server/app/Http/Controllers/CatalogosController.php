@@ -11,7 +11,10 @@ date_default_timezone_set('America/Mexico_City');
 class CatalogosController extends Controller
 {
     public function categoriasArticulos(){
-      return DB::table('tiposArticulos')->get();
+      return DB::table('tiposArticulos')
+               ->where('TIA_clave', '<>', 5)
+               ->where('TIA_clave', '<>', 4)
+               ->get();
     }
 
     public function guardaArticulo(){
@@ -97,7 +100,7 @@ class CatalogosController extends Controller
           $respuesta = DB::table('articulos')
                           ->where('ART_id', $idArticulo)
                           ->delete();
-                          
+
           if ( $img != null || $img != '' ) {
             unlink('../imgArticulos/'.$img);
           }
@@ -112,7 +115,7 @@ class CatalogosController extends Controller
   	}
 
     public function asignaDonador() {
-      $idArticulo = Input::get('idArticulo');
+      $idArticulo = Input::get('ART_id');
       $donador    = Input::get('donador');
 
       try {

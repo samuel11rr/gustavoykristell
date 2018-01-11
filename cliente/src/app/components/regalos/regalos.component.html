@@ -60,9 +60,13 @@
       </div>
     </div>
 
+    <div class="progress" *ngIf="trabajando">
+        <div class="indeterminate"></div>
+    </div>
+
     <div class="row">
       <button class="btn waves-effect waves-light btn-large" type="submit" name="action"
-              [ngClass]="{'disabled': !articulosForm.valid}">
+              [ngClass]="{ 'disabled': !articulosForm.valid || trabajando }">
         Enviar
         <i class="mdi mdi-send"></i>
       </button>
@@ -118,7 +122,8 @@
   <div class="row" *ngIf="recamara || sala || cocina || otros">
     <div class="espacio"></div>
     <ng-container *ngFor="let item of articulos">
-      <div class="col s12 m12 l6" *ngIf="item.TIA_clave === categoria">
+      <div class="col s12 m12 l6"
+           *ngIf="( item.TIA_clave === categoria && item.ART_apartado === 0 && !sesion() ) || ( item.TIA_clave === categoria && sesion() )">
         <!-- inicia la prueba -->
         <div class="card medium z-depth-3">
           <div class="card-image" *ngIf="item.ART_img">
@@ -131,14 +136,25 @@
             <span class="card-title sweet txtXL" *ngIf="!item.ART_img">
               {{ item.ART_nombre | slice:0:1 | uppercase }}{{ item.ART_nombre | slice:1 | lowercase }}
             </span>
-            <p class="roboto-light" *ngIf="item.ART_descripcion">{{ item.ART_descripcion }}</p>
-            <p class="roboto-light" *ngIf="item.ART_url">
-              <a href="{{ item.ART_url }}" target="_blank">Aquí hay un ejemplo</a>
+            <p class="roboto-light">
+              <span *ngIf="item.ART_descripcion">
+                {{ item.ART_descripcion }}
+              </span>
+              <span *ngIf="!item.ART_descripcion">---</span>
+              <span *ngIf="item.ART_url">
+                | <a href="{{ item.ART_url }}" target="_blank">Aquí hay un ejemplo <i class="mdi mdi-open-in-new"></i></a>
+              </span>
+            </p>
+
+            <p class="roboto-light right-align"
+               *ngIf="item.ART_apartado === 1">
+              <b>Apartado por {{ item.ART_donador | uppercase }}</b>
             </p>
           </div>
           <div class="card-action">
             <button class="btn waves-effect waves-light pink lighten-3 txtMedium" type="button"
-                    (click)="apartaRegalo( item )">
+                    (click)="apartaRegalo( item )"
+                    *ngIf="item.ART_apartado === 0">
               Apartar
             </button>
             <button class="btn waves-effect waves-light red darken-4 txtMedium" type="button"
@@ -158,32 +174,49 @@
 
 <!-- Modal Aparta Articulo -->
 <div id="modalAparta" class="modal">
-  <form>
+  <form [formGroup]="donadorForm" (ngSubmit)="confirmaApartado()" novalidate>
     <div class="modal-content roboto-light">
       <span class="txtMedium">
         <b>{{ porApartar.ART_nombre }}</b>
-        <small *ngIf="porApartar.ART_descripcion">{{ porApartar.ART_descripcion }}</small>
+        <small>
+          <span *ngIf="porApartar.ART_descripcion">
+            {{ porApartar.ART_descripcion }}
+          </span>
+
+          <span *ngIf="porApartar.ART_img">
+            | <a href="http://gusykriss.hol.es/imgArticulos/{{ porApartar.ART_img }}" target="_blank">Ver imagen <i class="mdi mdi-open-in-new"></i></a>
+          </span>
+        </small>
       </span>
 
       <div class="row">
         <div class="input-field col s12 m6 l6">
-          <i class="mdi mdi-account-star prefix"></i>
-          <input id="nombre" type="text" class="validate">
+          <i class="mdi mdi-account-star prefix"
+             [ngClass]="{'invalid': !donadorForm.controls.nombre.valid && !donadorForm.controls.nombre.pristine }"></i>
+          <input id="nombre" type="text" class="validate"
+                 [ngClass]="{'invalid': !donadorForm.controls.nombre.valid && !donadorForm.controls.nombre.pristine }"
+                 formControlName="nombre">
           <label for="nombre">Tu nombre</label>
-          <p *ngIf="porApartar.ART_img"> <a href="http://gusykriss.hol.es/imgArticulos/{{ porApartar.ART_img }}" target="_blank">Ver imagen</a> </p>
+          <!-- <p *ngIf="porApartar.ART_img"> <a href="http://gusykriss.hol.es/imgArticulos/{{ porApartar.ART_img }}" target="_blank">Ver imagen</a> </p> -->
         </div>
 
-        <div class="input-field col s12 m6 l6">
+        <!-- <div class="input-field col s12 m6 l6">
           <i class="mdi mdi-mailbox prefix"></i>
           <textarea id="textarea1" class="materialize-textarea"></textarea>
           <label for="textarea1">Déjanos un mensaje (opcional)</label>
+        </div> -->
+        <div class="progress" *ngIf="trabajando">
+            <div class="indeterminate"></div>
         </div>
       </div>
     </div>
 
     <div class="modal-footer">
       <button type="button" class="btn modal-action modal-close waves-effect waves-light red">Cancelar</button>
-      <button type="submit" class="btn waves-effect waves-light">Apartar</button>
+      <button type="submit" class="btn waves-effect waves-light"
+              [ngClass]="{'disabled': !donadorForm.valid || trabajando }">
+        Apartar
+      </button>
     </div>
   </form>
 </div>

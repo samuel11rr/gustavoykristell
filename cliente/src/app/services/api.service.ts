@@ -54,6 +54,18 @@ export class ApiService {
               .catch(this.handleError);
   }
 
+  apartaArticulo( datos ){
+    let url = `${ this.api }/donador`;
+    let headers = new Headers({
+      'Content-Type':'aplication/json'
+    });
+    return this._http.post( url, datos, {headers} )
+               .map( res => {
+                 return res.json();
+               })
+               .catch(this.handleError);
+  }
+
   eliminaArticulo( datos ){
    let url = `${ this.api }/delArticulo`;
    let headers = new Headers({
