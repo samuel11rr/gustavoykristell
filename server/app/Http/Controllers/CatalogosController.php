@@ -84,6 +84,7 @@ class CatalogosController extends Controller
     public function eliminaArticulo() {
       $idArticulo = Input::get('idArticulo');
       $usuario    = Input::get('usuario');
+      $img        = Input::get('img');
 
       try {
         $usrExists = DB::table('usuarios')
@@ -96,6 +97,10 @@ class CatalogosController extends Controller
           $respuesta = DB::table('articulos')
                           ->where('ART_id', $idArticulo)
                           ->delete();
+                          
+          if ( $img != null || $img != '' ) {
+            unlink('../imgArticulos/'.$img);
+          }
         } else{
           $respuesta = 'no permitido';
         }

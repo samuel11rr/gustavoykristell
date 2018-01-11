@@ -115,45 +115,75 @@
 <div class="espacio-doble"></div>
 
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="recamara || sala || cocina || otros">
+    <div class="espacio"></div>
     <ng-container *ngFor="let item of articulos">
       <div class="col s12 m12 l6" *ngIf="item.TIA_clave === categoria">
-        <div class="card z-depth-3">
+        <!-- inicia la prueba -->
+        <div class="card medium z-depth-3">
+          <div class="card-image" *ngIf="item.ART_img">
+            <img src="http://gusykriss.hol.es/imgArticulos/{{ item.ART_img }}">
+            <span class="card-title sweet txtXL shadow-text">
+              {{ item.ART_nombre | slice:0:1 | uppercase }}{{ item.ART_nombre | slice:1 | lowercase }}
+            </span>
+          </div>
           <div class="card-content">
-            <span class="card-title sweet">{{ item.ART_nombre }}</span>
-            <p class="txtMedium" *ngIf="item.ART_descripcion">{{ item.ART_descripcion }}</p>
-            <p class="txtMedium" *ngIf="item.ART_url"><a href="{{ item.ART_url }}" target="_blank">Aqupi hay un ejemplo</a> </p>
-            <p *ngIf="item.ART_img"><img class="materialboxed responsive-img" src="imgArticulos/{{ item.ART_img }}"></p>
+            <span class="card-title sweet txtXL" *ngIf="!item.ART_img">
+              {{ item.ART_nombre | slice:0:1 | uppercase }}{{ item.ART_nombre | slice:1 | lowercase }}
+            </span>
+            <p class="roboto-light" *ngIf="item.ART_descripcion">{{ item.ART_descripcion }}</p>
+            <p class="roboto-light" *ngIf="item.ART_url">
+              <a href="{{ item.ART_url }}" target="_blank">Aquí hay un ejemplo</a>
+            </p>
           </div>
           <div class="card-action">
-            <button class="btn waves-effect waves-light pink lighten-3" type="button" (click)="apartaRegalo( item )">Apartar</button>
-            <button *ngIf="sesion()" class="btn waves-effect waves-light red darken-4" type="button" (click)="eliminaRegalo( item )">Eliminar</button>
+            <button class="btn waves-effect waves-light pink lighten-3 txtMedium" type="button"
+                    (click)="apartaRegalo( item )">
+              Apartar
+            </button>
+            <button class="btn waves-effect waves-light red darken-4 txtMedium" type="button"
+                    (click)="eliminaRegalo( item )"
+                    *ngIf="sesion()">
+              Eliminar
+            </button>
           </div>
         </div>
       </div>
     </ng-container>
-
   </div>
 </div>
 
-<div class="container roboto-light">
-  <div *ngIf="!recamara && !sala && !cocina && !otros">
-    Esto se muestra solo al inicio
-  </div>
+<div class="espacio-doble"></div>
 
-  <div *ngIf="recamara">
-    Recamara
-  </div>
 
-  <div *ngIf="sala">
-    Sala
-  </div>
+<!-- Modal Aparta Articulo -->
+<div id="modalAparta" class="modal">
+  <form>
+    <div class="modal-content roboto-light">
+      <span class="txtMedium">
+        <b>{{ porApartar.ART_nombre }}</b>
+        <small *ngIf="porApartar.ART_descripcion">{{ porApartar.ART_descripcion }}</small>
+      </span>
 
-  <div *ngIf="cocina">
-    Cocina
-  </div>
+      <div class="row">
+        <div class="input-field col s12 m6 l6">
+          <i class="mdi mdi-account-star prefix"></i>
+          <input id="nombre" type="text" class="validate">
+          <label for="nombre">Tu nombre</label>
+          <p *ngIf="porApartar.ART_img"> <a href="http://gusykriss.hol.es/imgArticulos/{{ porApartar.ART_img }}" target="_blank">Ver imagen</a> </p>
+        </div>
 
-  <div *ngIf="otros">
-    otros
-  </div>
+        <div class="input-field col s12 m6 l6">
+          <i class="mdi mdi-mailbox prefix"></i>
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Déjanos un mensaje (opcional)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn modal-action modal-close waves-effect waves-light red">Cancelar</button>
+      <button type="submit" class="btn waves-effect waves-light">Apartar</button>
+    </div>
+  </form>
 </div>

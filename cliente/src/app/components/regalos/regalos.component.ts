@@ -31,6 +31,8 @@ export class RegalosComponent implements OnInit {
     value: null
   }
 
+  porApartar:any = {};
+
   constructor( private _auth: AuthService,
                private _api: ApiService ) {
     this.categorias = this._api.getCategorias();
@@ -39,6 +41,7 @@ export class RegalosComponent implements OnInit {
       $('.parallax').parallax();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.materialboxed').materialbox();
+      $('#textarea1').trigger('autoresize');
     });
 
     this.articulosForm = new FormGroup({
@@ -149,8 +152,8 @@ export class RegalosComponent implements OnInit {
     }
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
-    let maxW = 800;
-    let maxH = 800;
+    let maxW = 600;
+    let maxH = 600;
 
     let img = document.createElement('img');
     let imagen;
@@ -224,14 +227,19 @@ export class RegalosComponent implements OnInit {
 
   apartaRegalo( item ){
     console.log( item );
-    alert(item.ART_nombre);
+    this.porApartar = item;
+    this.porApartar.nombre = null;
+    this.porApartar.mensaje = null;
+    // alert(item.ART_nombre);
+    $('#modalAparta').modal('open');
   }
   eliminaRegalo( item ){
     console.log( item );
 
     let datos = {
       idArticulo: item.ART_id,
-      usuario: JSON.parse(sessionStorage.getItem('usuario'))[0].USU_username
+      usuario: JSON.parse(sessionStorage.getItem('usuario'))[0].USU_username,
+      img: item.ART_img
     }
 
     this._api.eliminaArticulo( datos )
