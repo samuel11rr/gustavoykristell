@@ -42,8 +42,9 @@ export class RegalosComponent implements OnInit {
     $(document).ready(function(){
       $('.parallax').parallax();
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.materialboxed').materialbox();
-      $('#textarea1').trigger('autoresize');
+      // $('.materialboxed').materialbox();
+      // $('#textarea1').trigger('autoresize');
+      $('.modal').modal();
     });
 
     this.articulosForm = new FormGroup({
@@ -131,7 +132,7 @@ export class RegalosComponent implements OnInit {
     this.recamara   = false;
     this.sala       = false;
     this.cocina     = false;
-    this.categoria  = 4;
+    this.categoria  = 6;
   }
 
   alSeleccionarArchivo( event ) {
